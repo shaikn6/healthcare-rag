@@ -5,3 +5,9 @@ __pycache__/
 .ruff_cache/
 *.egg-info/
 .env
+
+# MIMIC data — never commit (PhysioNet license)
+mimic*/
+*mimic*demo*/
+**/*.csv.gz
+data/mimic*/

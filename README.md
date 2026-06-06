@@ -54,3 +54,15 @@ guardrail → delivery wired as visible nodes.
 doc ─▶ /scan-phi (gate) ─▶ /ingest ─▶ redact PHI ─▶ embed ─▶ VectorStore
 query ─▶ redact PHI ─▶ retrieve top-k ─▶ grounded prompt ─▶ Claude ─▶ answer+sources+disclaimer
 ```
+
+## Real ICU data (MIMIC-IV)
+`scripts/ingest_mimic.py` turns MIMIC-IV ICU stays into clinical summaries and ingests
+them (PHI-redacted, defense-in-depth) — proving the pipeline on real de-identified data.
+
+```bash
+# MIMIC-IV DEMO (100 patients) is open — no credentialing:
+#   https://physionet.org/content/mimic-iv-demo/
+python scripts/ingest_mimic.py /path/to/mimic-iv-clinical-database-demo-2.2
+```
+Raw MIMIC data is **never committed** (PhysioNet DUA + `.gitignore`). Full MIMIC-IV
+requires PhysioNet credentialing (CITI training + data use agreement).
