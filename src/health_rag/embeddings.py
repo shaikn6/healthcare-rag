@@ -1,6 +1,7 @@
 """Deterministic offline embedder (swap for a clinical model in prod)."""
 from __future__ import annotations
-import hashlib, re
+import hashlib
+import re
 import numpy as np
 
 DIM = 256
