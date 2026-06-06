@@ -1,0 +1,49 @@
+{
+  "name": "Healthcare RAG — ingest & query",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "ask",
+        "responseMode": "lastNode"
+      },
+      "name": "Webhook (ask)",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://host.docker.internal:8000/query",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={ \"question\": $json.body.question, \"k\": 3 }",
+        "options": {}
+      },
+      "name": "Healthcare RAG /query",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [520, 300]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            { "name": "answer", "value": "={{ $json.answer }}" },
+            { "name": "disclaimer", "value": "={{ $json.disclaimer }}" }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Shape response",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [800, 300]
+    }
+  ],
+  "connections": {
+    "Webhook (ask)": { "main": [[{ "node": "Healthcare RAG /query", "type": "main", "index": 0 }]] },
+    "Healthcare RAG /query": { "main": [[{ "node": "Shape response", "type": "main", "index": 0 }]] }
+  }
+}
