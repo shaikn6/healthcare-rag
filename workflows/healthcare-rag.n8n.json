@@ -13,7 +13,8 @@
       "position": [
         240,
         300
-      ]
+      ],
+      "webhookId": "e909c28f-b6ce-4bb0-90f8-c27466d12094"
     },
     {
       "parameters": {
@@ -21,7 +22,7 @@
         "url": "http://host.docker.internal:8000/query",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={ \"question\": $json.body.question, \"k\": 3 }",
+        "jsonBody": "={{ { \"question\": $json.body.question, \"k\": 3 } }}",
         "options": {}
       },
       "name": "Healthcare RAG /query",
@@ -34,15 +35,26 @@
     },
     {
       "parameters": {
-        "values": {
-          "string": [
+        "mode": "manual",
+        "assignments": {
+          "assignments": [
             {
+              "id": "a1",
               "name": "answer",
-              "value": "={{ $json.answer }}"
+              "value": "={{ $json.answer }}",
+              "type": "string"
             },
             {
+              "id": "a2",
+              "name": "sources",
+              "value": "={{ $json.sources }}",
+              "type": "array"
+            },
+            {
+              "id": "a3",
               "name": "disclaimer",
-              "value": "={{ $json.disclaimer }}"
+              "value": "={{ $json.disclaimer }}",
+              "type": "string"
             }
           ]
         },
@@ -50,7 +62,7 @@
       },
       "name": "Shape response",
       "type": "n8n-nodes-base.set",
-      "typeVersion": 2,
+      "typeVersion": 3.4,
       "position": [
         800,
         300
