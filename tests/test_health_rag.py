@@ -1,4 +1,4 @@
-from health_rag.phi import detect, redact, has_phi
+from health_rag.phi import detect, redact
 from health_rag.store import VectorStore
 from health_rag.llm import FakeLLM
 from health_rag.pipeline import answer
